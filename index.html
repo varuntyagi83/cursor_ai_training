@@ -1,0 +1,1854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CursorAI Masterclass | AI Catalyst by Varun Tyagi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --danger: #ef4444;
+            --background: #0f0f1a;
+            --surface: #1a1a2e;
+            --surface-light: #252542;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --gradient-1: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            --gradient-2: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+            --gradient-3: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            --shadow-glow: 0 0 60px rgba(99, 102, 241, 0.3);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Outfit', sans-serif; background: var(--background); color: var(--text); line-height: 1.7; overflow-x: hidden; }
+        .nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(15, 15, 26, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 1000; padding: 1rem 2rem; }
+        .nav-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 0.75rem; font-weight: 700; font-size: 1.25rem; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .logo-icon { width: 40px; height: 40px; background: var(--gradient-1); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; transition: color 0.3s; font-size: 0.9rem; }
+        .nav-links a:hover { color: var(--primary-light); }
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 6rem 2rem 4rem; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 50%), radial-gradient(circle at 70% 70%, rgba(139, 92, 246, 0.1) 0%, transparent 50%); animation: rotate 60s linear infinite; }
+        @keyframes rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .hero-content { max-width: 1000px; text-align: center; position: relative; z-index: 1; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--surface); border: 1px solid var(--border); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.875rem; margin-bottom: 2rem; color: var(--text-muted); }
+        .hero-badge span { color: var(--secondary); }
+        .hero h1 { font-size: clamp(3rem, 8vw, 5.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-subtitle { font-size: 1.5rem; color: var(--text-muted); margin-bottom: 2rem; font-weight: 300; }
+        .hero-author { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 3rem; }
+        .author-avatar { width: 60px; height: 60px; background: var(--gradient-2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; }
+        .author-info { text-align: left; }
+        .author-name { font-weight: 600; font-size: 1.1rem; }
+        .author-title { color: var(--text-muted); font-size: 0.9rem; }
+        .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .btn { padding: 1rem 2rem; border-radius: 12px; font-weight: 600; font-size: 1rem; text-decoration: none; transition: all 0.3s; cursor: pointer; border: none; font-family: inherit; }
+        .btn-primary { background: var(--gradient-1); color: white; box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4); }
+        .btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+        .btn-secondary:hover { background: var(--surface-light); border-color: var(--primary); }
+        .toc { background: var(--surface); padding: 4rem 2rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .toc-content { max-width: 1200px; margin: 0 auto; }
+        .toc h2 { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .toc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .toc-card { background: var(--background); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; transition: all 0.3s; text-decoration: none; color: inherit; }
+        .toc-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: var(--shadow-glow); }
+        .toc-card-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+        .toc-number { width: 40px; height: 40px; background: var(--gradient-1); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; }
+        .toc-title { font-weight: 600; font-size: 1.1rem; }
+        .toc-description { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+        .section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-number { display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 60px; background: var(--gradient-1); border-radius: 16px; font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; }
+        .section h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; }
+        .section-subtitle { color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto; }
+        .content-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 2.5rem; margin-bottom: 2rem; }
+        .content-card h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+        .content-card h4 { font-size: 1.2rem; font-weight: 600; margin: 2rem 0 1rem; color: var(--primary-light); }
+        .content-card p { color: var(--text-muted); margin-bottom: 1rem; }
+        .content-card ul, .content-card ol { color: var(--text-muted); margin-left: 1.5rem; margin-bottom: 1rem; }
+        .content-card li { margin-bottom: 0.5rem; }
+        .analogy-box { background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%); border: 1px solid var(--primary); border-radius: 16px; padding: 1.5rem; margin: 1.5rem 0; }
+        .analogy-box-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; font-weight: 600; color: var(--primary-light); }
+        .analogy-box p { color: var(--text); margin: 0; }
+        .warning-box { background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(239, 68, 68, 0.1) 100%); border: 1px solid var(--accent); border-radius: 16px; padding: 1.5rem; margin: 1.5rem 0; }
+        .warning-box-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; font-weight: 600; color: var(--accent); }
+        .success-box { background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%); border: 1px solid var(--secondary); border-radius: 16px; padding: 1.5rem; margin: 1.5rem 0; }
+        .success-box-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; font-weight: 600; color: var(--secondary); }
+        .code-block { background: #0d0d14; border: 1px solid var(--border); border-radius: 12px; margin: 1.5rem 0; overflow: hidden; }
+        .code-header { background: var(--surface); padding: 0.75rem 1rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+        .code-lang { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-muted); }
+        .code-copy { background: var(--surface-light); border: 1px solid var(--border); color: var(--text-muted); padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.75rem; cursor: pointer; transition: all 0.3s; }
+        .code-copy:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        .code-content { padding: 1.5rem; overflow-x: auto; }
+        .code-content pre { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; line-height: 1.6; color: var(--text); white-space: pre-wrap; word-wrap: break-word; }
+        .prompt-block { background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(6, 182, 212, 0.05) 100%); border: 2px solid var(--secondary); border-radius: 16px; margin: 2rem 0; overflow: hidden; }
+        .prompt-header { background: rgba(16, 185, 129, 0.1); padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--secondary); }
+        .prompt-title { font-weight: 600; color: var(--secondary); display: flex; align-items: center; gap: 0.5rem; }
+        .prompt-content { padding: 1.5rem; }
+        .prompt-content pre { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.7; color: var(--text); white-space: pre-wrap; word-wrap: break-word; }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 2rem 0; }
+        .comparison-table th, .comparison-table td { padding: 1rem; text-align: left; border: 1px solid var(--border); }
+        .comparison-table th { background: var(--surface-light); font-weight: 600; color: var(--primary-light); }
+        .comparison-table tr:nth-child(even) { background: rgba(255, 255, 255, 0.02); }
+        .comparison-table td { color: var(--text-muted); }
+        .steps { display: flex; flex-direction: column; gap: 1.5rem; margin: 2rem 0; }
+        .step { display: flex; gap: 1.5rem; align-items: flex-start; }
+        .step-number { flex-shrink: 0; width: 50px; height: 50px; background: var(--gradient-1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; }
+        .step-content { flex: 1; }
+        .step-content h4 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text); }
+        .step-content p { color: var(--text-muted); margin: 0; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .feature-card { background: var(--background); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; transition: all 0.3s; }
+        .feature-card:hover { border-color: var(--primary); transform: translateY(-3px); }
+        .feature-icon { width: 50px; height: 50px; background: var(--gradient-1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem; }
+        .feature-card h4 { font-weight: 600; margin-bottom: 0.5rem; }
+        .feature-card p { color: var(--text-muted); font-size: 0.9rem; margin: 0; }
+        .cheat-sheet { background: var(--background); border: 2px solid var(--primary); border-radius: 20px; padding: 2rem; margin: 2rem 0; }
+        .cheat-sheet h4 { font-size: 1.3rem; margin-bottom: 1.5rem; color: var(--primary-light); text-align: center; }
+        .cheat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+        .cheat-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; display: flex; align-items: center; gap: 1rem; }
+        .cheat-key { font-family: 'JetBrains Mono', monospace; background: var(--surface-light); padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; color: var(--primary-light); white-space: nowrap; }
+        .cheat-desc { color: var(--text-muted); font-size: 0.9rem; }
+        .module-separator { background: var(--surface); padding: 3rem 2rem; text-align: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin: 4rem 0; }
+        .module-separator h2 { font-size: 2rem; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.5rem; }
+        .module-separator p { color: var(--text-muted); }
+        .agent-flow { background: var(--background); border: 1px solid var(--border); border-radius: 20px; padding: 2rem; margin: 2rem 0; }
+        .agent-flow-title { text-align: center; font-weight: 600; margin-bottom: 2rem; color: var(--primary-light); }
+        .flow-container { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+        .flow-main-agent { background: var(--gradient-1); padding: 1.5rem 3rem; border-radius: 16px; font-weight: 600; font-size: 1.1rem; text-align: center; }
+        .flow-arrow { font-size: 2rem; color: var(--primary); }
+        .flow-sub-agents { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+        .flow-sub-agent { background: var(--surface); border: 2px solid var(--secondary); padding: 1rem 1.5rem; border-radius: 12px; text-align: center; }
+        .flow-sub-agent-title { font-weight: 600; color: var(--secondary); font-size: 0.9rem; margin-bottom: 0.25rem; }
+        .flow-sub-agent-task { font-size: 0.8rem; color: var(--text-muted); }
+        .secret-sauce { background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%); border: 2px solid var(--accent); border-radius: 20px; padding: 2rem; margin: 2rem 0; }
+        .secret-sauce-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+        .secret-sauce-icon { font-size: 2rem; }
+        .secret-sauce-title { font-size: 1.3rem; font-weight: 600; color: var(--accent); }
+        .secret-sauce-content { color: var(--text); }
+        .footer { background: var(--surface); border-top: 1px solid var(--border); padding: 4rem 2rem; text-align: center; }
+        .footer-logo { font-size: 1.5rem; font-weight: 700; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1rem; }
+        .footer p { color: var(--text-muted); margin-bottom: 2rem; }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--primary-light); }
+        .workflow-diagram { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; margin: 2rem 0; padding: 2rem; background: var(--background); border-radius: 16px; }
+        .workflow-step { background: var(--surface); border: 2px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center; min-width: 150px; }
+        .workflow-step.highlight-1 { border-color: var(--danger); }
+        .workflow-step.highlight-2 { border-color: var(--secondary); }
+        .workflow-step.highlight-3 { border-color: var(--primary); }
+        .workflow-step-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+        .workflow-step-title { font-weight: 600; font-size: 0.9rem; }
+        .workflow-arrow { font-size: 1.5rem; color: var(--text-muted); }
+        .highlight { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 600; }
+        .highlight-green { color: var(--secondary); font-weight: 600; }
+        .highlight-orange { color: var(--accent); font-weight: 600; }
+        .highlight-red { color: var(--danger); font-weight: 600; }
+        .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; overflow-x: auto; }
+        .tab { padding: 0.75rem 1.5rem; background: transparent; border: 1px solid transparent; border-radius: 8px 8px 0 0; color: var(--text-muted); cursor: pointer; font-weight: 500; white-space: nowrap; transition: all 0.3s; }
+        .tab:hover { color: var(--text); background: var(--surface-light); }
+        .tab.active { background: var(--surface-light); border-color: var(--border); border-bottom-color: var(--surface-light); color: var(--primary-light); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.5rem; }
+            .section { padding: 3rem 1rem; }
+            .content-card { padding: 1.5rem; }
+            .flow-sub-agents { flex-direction: column; }
+            .comparison-table { font-size: 0.85rem; }
+            .comparison-table th, .comparison-table td { padding: 0.75rem; }
+        }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--background); }
+        ::-webkit-scrollbar-thumb { background: var(--surface-light); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="logo">
+                <div class="logo-icon">⚡</div>
+                AI Catalyst
+            </div>
+            <ul class="nav-links">
+                <li><a href="#foundations">Foundations</a></li>
+                <li><a href="#coding-basics">Coding Basics</a></li>
+                <li><a href="#hands-on">Hands-On Lab</a></li>
+                <li><a href="#n8n-integration">n8n Integration</a></li>
+                <li><a href="#agents">Agents</a></li>
+                <li><a href="#advanced">Advanced</a></li>
+                <li><a href="#secret-sauce">Secret Sauce</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🚀 <span>AI Catalyst Course</span> • 2026 Edition</div>
+            <h1>CursorAI Masterclass</h1>
+            <p class="hero-subtitle">From Zero to AI-Powered Developer — The Complete Non-Technical Guide</p>
+            <div class="hero-author">
+                <div class="author-avatar">VT</div>
+                <div class="author-info">
+                    <div class="author-name">Varun Tyagi</div>
+                    <div class="author-title">Director of Data & AI Catalyst Instructor</div>
+                </div>
+            </div>
+            <div class="hero-cta">
+                <a href="#foundations" class="btn btn-primary">Start Learning →</a>
+                <a href="#toc" class="btn btn-secondary">View Curriculum</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Table of Contents -->
+    <section class="toc" id="toc">
+        <div class="toc-content">
+            <h2>📚 Course Curriculum</h2>
+            <div class="toc-grid">
+                <a href="#module-1" class="toc-card">
+                    <div class="toc-card-header">
+                        <div class="toc-number">1</div>
+                        <div class="toc-title">Foundations & Setup</div>
+                    </div>
+                    <p class="toc-description">What is Cursor, VS Code, installation, GitHub integration, multiple LLMs, and debugging</p>
+                </a>
+                <a href="#module-2" class="toc-card">
+                    <div class="toc-card-header">
+                        <div class="toc-number">2</div>
+                        <div class="toc-title">Coding Fundamentals</div>
+                    </div>
+                    <p class="toc-description">HTML, CSS, JavaScript basics, files, imports, APIs, databases — all explained simply</p>
+                </a>
+                <a href="#module-3" class="toc-card">
+                    <div class="toc-card-header">
+                        <div class="toc-number">3</div>
+                        <div class="toc-title">Composer & Rules</div>
+                    </div>
+                    <p class="toc-description">Master Cursor's Composer, Agent Mode, and project rules for better AI guidance</p>
+                </a>
+                <a href="#module-4" class="toc-card">
+                    <div class="toc-card-header">
+                        <div class="toc-number">4</div>
+                        <div class="toc-title">Project Architecture</div>
+                    </div>
+                    <p class="toc-description">How projects are organized, components, and structuring landing pages</p>
+                </a>
+                <a href="#module-5" class="toc-card">
+                    <div class="toc-card-header">
+                        <div class="toc-number">5</div>
+                        <div class="toc-title">Hands-On Lab</div>
+                    </div>
+                    <p class="toc-description">Build a complete landing page with hero, services, testimonials, and contact form</p>
+                </a>
+                <a href="#module-6" class="toc-card">
+                    <div class="toc-card-header">
+                        <div class="toc-number">6</div>
+                        <div class="toc-title">n8n Integration</div>
+                    </div>
+                    <p class="toc-description">Connect Cursor to n8n via MCP, create workflows with natural language</p>
+                </a>
+                <a href="#module-7" class="toc-card">
+                    <div class="toc-card-header">
+                        <div class="toc-number">7</div>
+                        <div class="toc-title">Agents & Sub-Agents</div>
+                    </div>
+                    <p class="toc-description">Build reusable AI agents for ClickUp automation using plain language</p>
+                </a>
+                <a href="#module-8" class="toc-card">
+                    <div class="toc-card-header">
+                        <div class="toc-number">8</div>
+                        <div class="toc-title">Advanced Workflows</div>
+                    </div>
+                    <p class="toc-description">Merge Claude Code + Lovable, branching, PRs, and operating cadence</p>
+                </a>
+                <a href="#module-9" class="toc-card">
+                    <div class="toc-card-header">
+                        <div class="toc-number">9</div>
+                        <div class="toc-title">Secret Sauces 🔥</div>
+                    </div>
+                    <p class="toc-description">Pro tips, hidden gems, and power user techniques</p>
+                </a>
+                <a href="#module-10" class="toc-card">
+                    <div class="toc-card-header">
+                        <div class="toc-number">10</div>
+                        <div class="toc-title">When to Use Cursor</div>
+                    </div>
+                    <p class="toc-description">Decision framework: Cursor vs Claude Code vs ChatGPT vs Lovable</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODULE 1: FOUNDATIONS -->
+    <div class="module-separator" id="module-1">
+        <h2>Module 1</h2>
+        <p>Foundations & Setup</p>
+    </div>
+
+    <section class="section" id="foundations">
+        <div class="section-header">
+            <div class="section-number">1</div>
+            <h2>Foundations & Setup</h2>
+            <p class="section-subtitle">Understanding CursorAI, VS Code, and getting everything installed</p>
+        </div>
+
+        <div class="content-card">
+            <h3>📝 What is VS Code?</h3>
+            <div class="analogy-box">
+                <div class="analogy-box-header">💡 Think of it like this...</div>
+                <p><strong>VS Code is like Microsoft Word, but for writing code.</strong> Just like Word helps you write documents with spell-check and formatting, VS Code helps developers write code with syntax highlighting, error detection, and auto-completion. It's free, made by Microsoft, and used by millions of developers worldwide.</p>
+            </div>
+            <p><strong>VS Code (Visual Studio Code)</strong> is a free, lightweight code editor that has become the most popular tool for writing software. It's like a super-powered text editor designed specifically for programming.</p>
+            <h4>VS Code Superpowers:</h4>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h4>Syntax Highlighting</h4>
+                    <p>Colors different parts of code so it's easier to read — like color-coding a textbook</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h4>Error Detection</h4>
+                    <p>Red squiggly lines under mistakes, just like spell-check in Word</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h4>Auto-Complete</h4>
+                    <p>Suggests code as you type, like predictive text on your phone</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧩</div>
+                    <h4>Extensions</h4>
+                    <p>Add extra features like plugins — thousands of free add-ons available</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔀</div>
+                    <h4>Git Integration</h4>
+                    <p>Built-in version control to track changes and collaborate</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💻</div>
+                    <h4>Terminal Built-In</h4>
+                    <p>Run commands without leaving the editor</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>🤖 What is CursorAI?</h3>
+            <div class="analogy-box">
+                <div class="analogy-box-header">💡 Think of it like this...</div>
+                <p><strong>Cursor is VS Code that got an AI brain transplant.</strong> Imagine if your Word document could understand what you want to write and help you write it. That's Cursor — it's VS Code with built-in AI that can write code, explain code, fix bugs, and even build entire features just by talking to it in plain English.</p>
+            </div>
+            <p>CursorAI takes everything great about VS Code and adds powerful AI capabilities directly into the editor. You don't need to copy-paste between ChatGPT and your code — the AI lives right where you work.</p>
+            <h4>What Makes Cursor Special:</h4>
+            <ul>
+                <li><strong>AI Chat:</strong> Ask questions about your code and get instant answers</li>
+                <li><strong>Composer:</strong> Describe what you want to build, and Cursor writes the code across multiple files</li>
+                <li><strong>Agent Mode:</strong> Let AI autonomously make changes, run commands, and fix errors</li>
+                <li><strong>Code Understanding:</strong> The AI can read and understand your entire project</li>
+                <li><strong>Multiple AI Models:</strong> Choose between Claude, GPT-4, Gemini, and more</li>
+                <li><strong>Free to Start:</strong> Generous free tier for beginners</li>
+            </ul>
+        </div>
+
+        <div class="content-card">
+            <h3>⚔️ Cursor vs Claude Code: When to Use What</h3>
+            <div class="analogy-box">
+                <div class="analogy-box-header">💡 Think of it like this...</div>
+                <p><strong>Claude Code is like a highly skilled contractor you hire remotely.</strong> You describe the job, they go away and build it, then deliver the result. <strong>Cursor is like having that contractor work in your office.</strong> You can look over their shoulder, make suggestions, and collaborate in real-time. Both are powerful, just different working styles.</p>
+            </div>
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>Feature</th><th>CursorAI</th><th>Claude Code</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Interface</strong></td><td>Visual editor (like Word)</td><td>Command line (text-based terminal)</td></tr>
+                    <tr><td><strong>Best For</strong></td><td>Visual learners, web development, UI work</td><td>Backend development, automation, scripting</td></tr>
+                    <tr><td><strong>AI Models</strong></td><td>Multiple (Claude, GPT-4, Gemini)</td><td>Claude only (but very powerful)</td></tr>
+                    <tr><td><strong>Visualization</strong></td><td>Can preview HTML/web pages</td><td>No built-in preview</td></tr>
+                    <tr><td><strong>Learning Curve</strong></td><td>Gentler — familiar interface</td><td>Steeper — requires terminal comfort</td></tr>
+                    <tr><td><strong>Autonomy</strong></td><td>Semi-autonomous (Agent Mode)</td><td>Highly autonomous (runs commands itself)</td></tr>
+                    <tr><td><strong>Cost</strong></td><td>Free tier + paid plans</td><td>Part of Claude Pro/API</td></tr>
+                </tbody>
+            </table>
+            <h4>🎯 Decision Guide:</h4>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🖥️</div>
+                    <h4>Use Cursor When...</h4>
+                    <p>Building websites, UI design, learning to code, visual feedback needed, working with HTML/CSS</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⌨️</div>
+                    <h4>Use Claude Code When...</h4>
+                    <p>Backend systems, API development, automation scripts, file processing, complex refactoring</p>
+                </div>
+            </div>
+            <div class="warning-box">
+                <div class="warning-box-header">⚠️ Does Cursor Allow Visualization Like Lovable/v0?</div>
+                <p><strong>Not natively.</strong> Cursor doesn't have a built-in live preview like Lovable or v0. However, you can:</p>
+                <ul>
+                    <li>Use the "Live Server" extension to preview HTML in your browser</li>
+                    <li>Run a development server and view changes in real-time</li>
+                    <li>For the best visual building experience, use Lovable for UI → export to Cursor for backend work</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>📥 Installation Guide</h3>
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('windows')">Windows</button>
+                <button class="tab" onclick="showTab('mac')">Mac</button>
+            </div>
+            <div id="windows" class="tab-content active">
+                <div class="steps">
+                    <div class="step"><div class="step-number">1</div><div class="step-content"><h4>Download Cursor</h4><p>Go to <strong>cursor.com</strong> and click "Download for Windows"</p></div></div>
+                    <div class="step"><div class="step-number">2</div><div class="step-content"><h4>Run the Installer</h4><p>Double-click the downloaded file (CursorSetup.exe) and follow the prompts</p></div></div>
+                    <div class="step"><div class="step-number">3</div><div class="step-content"><h4>Sign In / Create Account</h4><p>Open Cursor and create an account (you can use Google, GitHub, or email)</p></div></div>
+                    <div class="step"><div class="step-number">4</div><div class="step-content"><h4>Choose Your AI Model</h4><p>Go to Settings → Models and select your preferred AI (Claude recommended)</p></div></div>
+                    <div class="step"><div class="step-number">5</div><div class="step-content"><h4>Import VS Code Settings (Optional)</h4><p>If you used VS Code before, Cursor can import your extensions and settings automatically</p></div></div>
+                </div>
+            </div>
+            <div id="mac" class="tab-content">
+                <div class="steps">
+                    <div class="step"><div class="step-number">1</div><div class="step-content"><h4>Download Cursor</h4><p>Go to <strong>cursor.com</strong> and click "Download for Mac" (Intel or Apple Silicon)</p></div></div>
+                    <div class="step"><div class="step-number">2</div><div class="step-content"><h4>Open the DMG File</h4><p>Double-click the downloaded file and drag Cursor to your Applications folder</p></div></div>
+                    <div class="step"><div class="step-number">3</div><div class="step-content"><h4>Launch Cursor</h4><p>Open from Applications (you may need to right-click → Open the first time for security)</p></div></div>
+                    <div class="step"><div class="step-number">4</div><div class="step-content"><h4>Sign In / Create Account</h4><p>Create an account using Google, GitHub, or email</p></div></div>
+                    <div class="step"><div class="step-number">5</div><div class="step-content"><h4>Grant Permissions</h4><p>Allow file access when prompted so Cursor can read your project files</p></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>🧠 Using Multiple LLMs in Cursor</h3>
+            <div class="analogy-box">
+                <div class="analogy-box-header">💡 Think of it like this...</div>
+                <p><strong>LLMs (Large Language Models) are like different expert consultants.</strong> Claude is great at reasoning and following instructions. GPT-4 excels at creative tasks. Gemini is fast and good with long documents. Cursor lets you switch between them like choosing which expert to ask for help.</p>
+            </div>
+            <h4>Available Models in Cursor:</h4>
+            <table class="comparison-table">
+                <thead><tr><th>Model</th><th>Best For</th><th>Speed</th><th>Cost</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Claude Sonnet 4</strong></td><td>Coding, following instructions, accuracy</td><td>Fast</td><td>Included</td></tr>
+                    <tr><td><strong>Claude Opus 4</strong></td><td>Complex reasoning, large codebases</td><td>Slower</td><td>Premium</td></tr>
+                    <tr><td><strong>GPT-4o</strong></td><td>Creative solutions, general coding</td><td>Fast</td><td>Included</td></tr>
+                    <tr><td><strong>Gemini Pro</strong></td><td>Large files, quick iterations</td><td>Very Fast</td><td>Included</td></tr>
+                    <tr><td><strong>cursor-small</strong></td><td>Simple tasks, fast responses</td><td>Fastest</td><td>Free</td></tr>
+                </tbody>
+            </table>
+            <div class="success-box">
+                <div class="success-box-header">✅ Pro Tip: Model Strategy</div>
+                <p>Use <strong>cursor-small</strong> for quick questions, <strong>Claude Sonnet</strong> for most coding tasks, and <strong>Claude Opus</strong> when you need the AI to really think through complex problems.</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>🔗 GitHub Integration</h3>
+            <div class="analogy-box">
+                <div class="analogy-box-header">💡 Think of it like this...</div>
+                <p><strong>GitHub is like Google Drive for code, but with a time machine.</strong> It stores your code in the cloud, lets you collaborate with others, and keeps a history of every change ever made. If you break something, you can always go back to a working version.</p>
+            </div>
+            <h4>Key GitHub Concepts:</h4>
+            <ul>
+                <li><strong>Repository (Repo):</strong> A folder for your project that lives on GitHub's servers</li>
+                <li><strong>Clone:</strong> Download a copy of a repo to your computer</li>
+                <li><strong>Commit:</strong> Save a checkpoint of your changes (like saving a game)</li>
+                <li><strong>Push:</strong> Upload your local commits to GitHub</li>
+                <li><strong>Pull:</strong> Download changes others have made</li>
+                <li><strong>Branch:</strong> A parallel version of your code for experimenting safely</li>
+            </ul>
+            <div class="code-block">
+                <div class="code-header"><span class="code-lang">Terminal Commands</span><button class="code-copy">Copy</button></div>
+                <div class="code-content"><pre># Configure Git with your identity (do this once)
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+
+# Clone a repository
+git clone https://github.com/username/repository.git
+
+# Check status of your changes
+git status
+
+# Stage all changes for commit
+git add .
+
+# Commit with a message
+git commit -m "Describe what you changed"
+
+# Push to GitHub
+git push origin main</pre></div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>🐛 Debugging Your Code</h3>
+            <div class="analogy-box">
+                <div class="analogy-box-header">💡 Think of it like this...</div>
+                <p><strong>Debugging is like being a detective for your code.</strong> When something doesn't work, you look for clues (error messages), question suspects (variables), and trace the crime scene (step through the code line by line) until you find the culprit (the bug).</p>
+            </div>
+            <h4>Common Error Types:</h4>
+            <table class="comparison-table">
+                <thead><tr><th>Error Type</th><th>What It Means</th><th>How to Fix</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Syntax Error</strong></td><td>You typed something wrong (missing comma, typo)</td><td>Check the line number in the error, look for typos</td></tr>
+                    <tr><td><strong>Reference Error</strong></td><td>Using a variable that doesn't exist</td><td>Check spelling, make sure it's defined first</td></tr>
+                    <tr><td><strong>Type Error</strong></td><td>Trying to do something with the wrong type of data</td><td>Check what kind of data you're working with</td></tr>
+                    <tr><td><strong>404 Error</strong></td><td>Can't find a file or webpage</td><td>Check the URL or file path</td></tr>
+                    <tr><td><strong>500 Error</strong></td><td>Something went wrong on the server</td><td>Check server logs, database connections</td></tr>
+                </tbody>
+            </table>
+            <div class="prompt-block">
+                <div class="prompt-header"><span class="prompt-title">📝 Debugging Prompt Template</span><button class="code-copy">Copy</button></div>
+                <div class="prompt-content"><pre>I'm getting this error:
+
+[Paste the exact error message here]
+
+This happens when I try to:
+[Describe what you were doing]
+
+Here's the relevant code:
+[Paste the code that's causing the error]
+
+Please help me:
+1. Understand what this error means in simple terms
+2. Find the cause of the problem
+3. Fix the issue</pre></div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>⌨️ Core Features & Key Commands</h3>
+            <div class="cheat-sheet">
+                <h4>🚀 Essential Cursor Shortcuts</h4>
+                <div class="cheat-grid">
+                    <div class="cheat-item"><span class="cheat-key">Cmd/Ctrl + L</span><span class="cheat-desc">Open AI Chat</span></div>
+                    <div class="cheat-item"><span class="cheat-key">Cmd/Ctrl + I</span><span class="cheat-desc">Open Composer</span></div>
+                    <div class="cheat-item"><span class="cheat-key">Cmd/Ctrl + K</span><span class="cheat-desc">Edit selected code with AI</span></div>
+                    <div class="cheat-item"><span class="cheat-key">Cmd/Ctrl + Shift + P</span><span class="cheat-desc">Command Palette</span></div>
+                    <div class="cheat-item"><span class="cheat-key">Cmd/Ctrl + P</span><span class="cheat-desc">Quick file open</span></div>
+                    <div class="cheat-item"><span class="cheat-key">Cmd/Ctrl + /</span><span class="cheat-desc">Toggle comment</span></div>
+                    <div class="cheat-item"><span class="cheat-key">Cmd/Ctrl + S</span><span class="cheat-desc">Save file</span></div>
+                    <div class="cheat-item"><span class="cheat-key">Cmd/Ctrl + `</span><span class="cheat-desc">Toggle terminal</span></div>
+                    <div class="cheat-item"><span class="cheat-key">Tab</span><span class="cheat-desc">Accept AI suggestion</span></div>
+                    <div class="cheat-item"><span class="cheat-key">@ in chat</span><span class="cheat-desc">Reference files/folders</span></div>
+                </div>
+            </div>
+            <h4>Slash Commands in Chat:</h4>
+            <table class="comparison-table">
+                <thead><tr><th>Command</th><th>What It Does</th></tr></thead>
+                <tbody>
+                    <tr><td><code>/edit</code></td><td>Edit the current file based on your instructions</td></tr>
+                    <tr><td><code>/explain</code></td><td>Explain selected code in simple terms</td></tr>
+                    <tr><td><code>/fix</code></td><td>Fix errors in selected code</td></tr>
+                    <tr><td><code>/test</code></td><td>Generate tests for selected code</td></tr>
+                    <tr><td><code>/doc</code></td><td>Generate documentation for code</td></tr>
+                    <tr><td><code>@file</code></td><td>Reference a specific file in your prompt</td></tr>
+                    <tr><td><code>@web</code></td><td>Search the web for information</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- MODULE 2: CODING FUNDAMENTALS -->
+    <div class="module-separator" id="module-2">
+        <h2>Module 2</h2>
+        <p>Coding Fundamentals for Non-Coders</p>
+    </div>
+
+    <section class="section" id="coding-basics">
+        <div class="section-header">
+            <div class="section-number">2</div>
+            <h2>Coding Fundamentals</h2>
+            <p class="section-subtitle">Everything you need to know to communicate effectively with Cursor</p>
+        </div>
+
+        <div class="content-card">
+            <h3>📁 Files & Folders Structure</h3>
+            <div class="analogy-box">
+                <div class="analogy-box-header">💡 Think of it like this...</div>
+                <p><strong>Project structure is like a filing cabinet.</strong> You have drawers (folders) labeled by purpose, and files inside each drawer. Everything has a logical place. When you tell Cursor "create a new component," it needs to know which drawer to put it in.</p>
+            </div>
+            <h4>Common File Extensions:</h4>
+            <table class="comparison-table">
+                <thead><tr><th>Extension</th><th>What It Is</th><th>Analogy</th></tr></thead>
+                <tbody>
+                    <tr><td><code>.html</code></td><td>Web page structure</td><td>The skeleton/bones of a page</td></tr>
+                    <tr><td><code>.css</code></td><td>Styling and design</td><td>The clothing and makeup</td></tr>
+                    <tr><td><code>.js</code></td><td>JavaScript - makes things interactive</td><td>The muscles and movement</td></tr>
+                    <tr><td><code>.jsx/.tsx</code></td><td>React components</td><td>Pre-built LEGO pieces</td></tr>
+                    <tr><td><code>.json</code></td><td>Data and configuration</td><td>A structured recipe card</td></tr>
+                    <tr><td><code>.env</code></td><td>Secret settings (passwords, API keys)</td><td>A locked safe</td></tr>
+                    <tr><td><code>.md</code></td><td>Documentation (Markdown)</td><td>Instruction manual</td></tr>
+                </tbody>
+            </table>
+            <h4>Typical Project Structure:</h4>
+            <div class="code-block">
+                <div class="code-header"><span class="code-lang">Folder Structure</span></div>
+                <div class="code-content"><pre>my-project/
+├── public/              # Static files (images, fonts)
+│   └── images/
+├── src/                 # Source code (where you work)
+│   ├── components/      # Reusable UI pieces
+│   ├── pages/           # Different screens/routes
+│   ├── styles/          # CSS files
+│   └── utils/           # Helper functions
+├── .env                 # Secret configuration
+├── package.json         # Project info & dependencies
+└── README.md            # Project documentation</pre></div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>🏗️ HTML Basics</h3>
+            <div class="analogy-box">
+                <div class="analogy-box-header">💡 Think of it like this...</div>
+                <p><strong>HTML is the skeleton of a webpage.</strong> Just like bones give your body structure, HTML tags give a webpage its structure. Every visible element — headings, paragraphs, images, buttons — is an HTML element.</p>
+            </div>
+            <h4>Essential HTML Tags:</h4>
+            <table class="comparison-table">
+                <thead><tr><th>Tag</th><th>What It Creates</th><th>Example</th></tr></thead>
+                <tbody>
+                    <tr><td><code>&lt;h1&gt; to &lt;h6&gt;</code></td><td>Headings (h1 = biggest)</td><td>&lt;h1&gt;Welcome&lt;/h1&gt;</td></tr>
+                    <tr><td><code>&lt;p&gt;</code></td><td>Paragraph</td><td>&lt;p&gt;Some text here&lt;/p&gt;</td></tr>
+                    <tr><td><code>&lt;div&gt;</code></td><td>Container/box</td><td>&lt;div&gt;...content...&lt;/div&gt;</td></tr>
+                    <tr><td><code>&lt;img&gt;</code></td><td>Image</td><td>&lt;img src="photo.jpg"&gt;</td></tr>
+                    <tr><td><code>&lt;a&gt;</code></td><td>Link</td><td>&lt;a href="url"&gt;Click me&lt;/a&gt;</td></tr>
+                    <tr><td><code>&lt;button&gt;</code></td><td>Clickable button</td><td>&lt;button&gt;Submit&lt;/button&gt;</td></tr>
+                    <tr><td><code>&lt;input&gt;</code></td><td>Form field</td><td>&lt;input type="text"&gt;</td></tr>
+                </tbody>
+            </table>
+            <div class="prompt-block">
+                <div class="prompt-header"><span class="prompt-title">📝 How to Ask Cursor for HTML</span></div>
+                <div class="prompt-content"><pre>// Instead of:
+"Make a thing with some text"
+
+// Say this:
+"Create a section with:
+- An h2 heading that says 'Our Services'
+- Three div cards, each containing an icon, h3 title, and p description
+- A button at the bottom that says 'Learn More'"</pre></div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>🎨 CSS Basics</h3>
+            <div class="analogy-box">
+                <div class="analogy-box-header">💡 Think of it like this...</div>
+                <p><strong>CSS is the clothing and makeup of a webpage.</strong> While HTML provides the structure (skeleton), CSS makes it look good. It controls colors, sizes, fonts, spacing, animations — everything visual.</p>
+            </div>
+            <h4>Key CSS Concepts:</h4>
+            <table class="comparison-table">
+                <thead><tr><th>Concept</th><th>What It Controls</th><th>Example</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Color</strong></td><td>Text and background colors</td><td>color: blue; background: #f0f0f0;</td></tr>
+                    <tr><td><strong>Font</strong></td><td>Typography</td><td>font-family: Arial; font-size: 16px;</td></tr>
+                    <tr><td><strong>Margin</strong></td><td>Space OUTSIDE an element</td><td>margin: 20px;</td></tr>
+                    <tr><td><strong>Padding</strong></td><td>Space INSIDE an element</td><td>padding: 10px;</td></tr>
+                    <tr><td><strong>Border</strong></td><td>Lines around elements</td><td>border: 1px solid black;</td></tr>
+                    <tr><td><strong>Display</strong></td><td>How elements arrange</td><td>display: flex; display: grid;</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="content-card">
+            <h3>⚡ JavaScript Essentials</h3>
+            <div class="analogy-box">
+                <div class="analogy-box-header">💡 Think of it like this...</div>
+                <p><strong>JavaScript is the brain and muscles of a webpage.</strong> If HTML is the skeleton and CSS is the clothing, JavaScript is what makes things move and think. It handles clicks, shows/hides content, fetches data, validates forms — anything interactive.</p>
+            </div>
+            <div class="analogy-box">
+                <div class="analogy-box-header">🍳 The Recipe Analogy</div>
+                <p>A <strong>function</strong> is like a recipe. It takes <strong>arguments</strong> (ingredients) and produces a <strong>return value</strong> (the finished dish).</p>
+            </div>
+            <div class="code-block">
+                <div class="code-header"><span class="code-lang">JavaScript</span></div>
+                <div class="code-content"><pre>// Function = Recipe, Arguments = Ingredients, Return = Finished dish
+
+function makeSmoothie(fruit, liquid, ice) {
+    const result = fruit + " " + liquid + " smoothie";
+    return result;  // The finished dish
+}
+
+// Using the function:
+const mySmoothie = makeSmoothie("banana", "almond milk", true);
+// mySmoothie = "banana almond milk smoothie"</pre></div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>🔐 Environment Variables</h3>
+            <div class="analogy-box">
+                <div class="analogy-box-header">💡 Think of it like this...</div>
+                <p><strong>Environment variables are like secret passwords stored in a safe.</strong> You never write passwords directly in your code (that's dangerous!). Instead, you put them in a special hidden file (.env), and your code reads from that safe when needed.</p>
+            </div>
+            <div class="code-block">
+                <div class="code-header"><span class="code-lang">.env file (never share this!)</span></div>
+                <div class="code-content"><pre># These are secrets - never commit to GitHub!
+DATABASE_URL=postgresql://user:password@localhost:5432/mydb
+API_KEY=sk-abc123xyz789
+STRIPE_SECRET=sk_test_secretkey123</pre></div>
+            </div>
+            <div class="warning-box">
+                <div class="warning-box-header">⚠️ Critical Security Rule</div>
+                <p>NEVER put real passwords, API keys, or secrets directly in your code. Always use environment variables. Make sure .env is listed in your .gitignore file so it's never uploaded to GitHub.</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>📡 JSON & API Basics</h3>
+            <div class="analogy-box">
+                <div class="analogy-box-header">💡 JSON: Think of it like this...</div>
+                <p><strong>JSON is a universal language for data.</strong> It's like a very organized form that any computer can read. It uses curly braces { } and key-value pairs.</p>
+            </div>
+            <div class="code-block">
+                <div class="code-header"><span class="code-lang">JSON Example</span></div>
+                <div class="code-content"><pre>{
+    "name": "Varun Tyagi",
+    "role": "Director of Data",
+    "skills": ["AI", "Automation", "Analytics"],
+    "contact": {
+        "email": "varun@example.com",
+        "location": "Berlin"
+    },
+    "isAvailable": true
+}</pre></div>
+            </div>
+            <div class="analogy-box">
+                <div class="analogy-box-header">🍽️ APIs: The Restaurant Analogy</div>
+                <p><strong>An API is like a waiter at a restaurant.</strong> You (the customer/app) can't go directly into the kitchen (the server/database). Instead, you tell the waiter (API) what you want, they go to the kitchen, and bring back your food (data). The menu is the API documentation.</p>
+            </div>
+            <h4>API Request Types:</h4>
+            <table class="comparison-table">
+                <thead><tr><th>Method</th><th>Restaurant Analogy</th><th>What It Does</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>GET</strong></td><td>"Can I see the menu?"</td><td>Fetch/read data</td></tr>
+                    <tr><td><strong>POST</strong></td><td>"I'd like to order this dish"</td><td>Create new data</td></tr>
+                    <tr><td><strong>PUT</strong></td><td>"Actually, change my order to..."</td><td>Update existing data</td></tr>
+                    <tr><td><strong>DELETE</strong></td><td>"Cancel that order"</td><td>Remove data</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="content-card">
+            <h3>🗄️ Database Basics</h3>
+            <div class="analogy-box">
+                <div class="analogy-box-header">💡 Think of it like this...</div>
+                <p><strong>A database is like an Excel spreadsheet for your app.</strong> It has tables (like sheets), rows (like individual records), and columns (like fields). But unlike Excel, it can handle millions of records and multiple users accessing it simultaneously.</p>
+            </div>
+            <h4>Key Database Terms:</h4>
+            <table class="comparison-table">
+                <thead><tr><th>Term</th><th>Excel Equivalent</th><th>Example</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Table</strong></td><td>A sheet</td><td>"users" table, "orders" table</td></tr>
+                    <tr><td><strong>Row</strong></td><td>A single row</td><td>One user's complete info</td></tr>
+                    <tr><td><strong>Column</strong></td><td>A column header</td><td>name, email, created_at</td></tr>
+                    <tr><td><strong>Primary Key</strong></td><td>Unique ID column</td><td>user_id = 1, 2, 3...</td></tr>
+                    <tr><td><strong>Migration</strong></td><td>Adding/removing columns</td><td>Add "phone" column to users</td></tr>
+                    <tr><td><strong>Query</strong></td><td>Filter/sort/find</td><td>Find all users where city = "Berlin"</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- MODULE 3: COMPOSER & RULES -->
+    <div class="module-separator" id="module-3">
+        <h2>Module 3</h2>
+        <p>Composer & Rules</p>
+    </div>
+
+    <section class="section">
+        <div class="section-header">
+            <div class="section-number">3</div>
+            <h2>Composer & Rules</h2>
+            <p class="section-subtitle">Master Cursor's most powerful features for building entire features</p>
+        </div>
+
+        <div class="content-card">
+            <h3>🎼 What is Composer?</h3>
+            <div class="analogy-box">
+                <div class="analogy-box-header">💡 Think of it like this...</div>
+                <p><strong>Chat is like asking a friend for advice. Composer is like hiring a contractor to renovate your house.</strong> Chat answers questions and makes small edits to one file at a time. Composer can work across your entire project, creating and modifying multiple files to build complete features.</p>
+            </div>
+            <h4>Chat vs Composer:</h4>
+            <table class="comparison-table">
+                <thead><tr><th>Feature</th><th>Chat (Cmd+L)</th><th>Composer (Cmd+I)</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Scope</strong></td><td>Single file at a time</td><td>Multiple files at once</td></tr>
+                    <tr><td><strong>Best For</strong></td><td>Questions, explanations, small edits</td><td>Building features, major changes</td></tr>
+                    <tr><td><strong>Creates Files</strong></td><td>Can suggest, but you apply manually</td><td>Creates and edits files directly</td></tr>
+                    <tr><td><strong>Agent Mode</strong></td><td>Not available</td><td>Can run commands, test, iterate</td></tr>
+                </tbody>
+            </table>
+            <h4>Agent Mode:</h4>
+            <div class="analogy-box">
+                <div class="analogy-box-header">🤖 The Autonomous Contractor</div>
+                <p><strong>Agent Mode is Composer with autonomy.</strong> Instead of just suggesting changes, it can actually run commands, check if things work, fix errors it encounters, and keep going until the job is done.</p>
+            </div>
+            <div class="success-box">
+                <div class="success-box-header">✅ When to Use Agent Mode</div>
+                <ul>
+                    <li>Building a new feature from scratch</li>
+                    <li>Fixing bugs that span multiple files</li>
+                    <li>Setting up project structure</li>
+                    <li>Running and testing code automatically</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>📋 Cursor Rules</h3>
+            <div class="analogy-box">
+                <div class="analogy-box-header">💡 Think of it like this...</div>
+                <p><strong>Cursor Rules are like a style guide for your contractor.</strong> Instead of explaining your preferences every single time, you write it once in a rules file, and Cursor follows it automatically for every request.</p>
+            </div>
+            <h4>Creating a .cursorrules File:</h4>
+            <p>Create a file named <code>.cursorrules</code> in your project's root folder:</p>
+            <div class="code-block">
+                <div class="code-header"><span class="code-lang">.cursorrules (Example)</span><button class="code-copy">Copy</button></div>
+                <div class="code-content"><pre># Project Rules for Cursor
+
+## About This Project
+This is a landing page for a health supplements company.
+Tech stack: HTML, CSS, JavaScript (vanilla), no frameworks.
+
+## Coding Style
+- Use clear, descriptive variable names
+- Add comments explaining complex logic
+- Use camelCase for JavaScript variables
+- Use kebab-case for CSS classes
+
+## Design Guidelines
+- Primary color: #6366f1 (purple)
+- Secondary color: #10b981 (green)
+- Font: 'Outfit' for headings, system fonts for body
+- Border radius: 12px for cards, 8px for buttons
+- Always add hover effects to buttons
+
+## Important Rules
+- NEVER use inline styles
+- Always make images responsive
+- Include alt text for all images
+- Mobile-first responsive design</pre></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODULE 4: PROJECT ARCHITECTURE -->
+    <div class="module-separator" id="module-4">
+        <h2>Module 4</h2>
+        <p>Project Architecture</p>
+    </div>
+
+    <section class="section">
+        <div class="section-header">
+            <div class="section-number">4</div>
+            <h2>Project Architecture</h2>
+            <p class="section-subtitle">Understanding how projects are organized to guide Cursor better</p>
+        </div>
+
+        <div class="content-card">
+            <h3>🧩 Component Architecture</h3>
+            <div class="analogy-box">
+                <div class="analogy-box-header">💡 Think of it like this...</div>
+                <p><strong>Components are like LEGO blocks.</strong> Instead of building everything from scratch, you create reusable pieces (a button, a card, a navigation bar) that snap together to form complete pages. Change one LEGO block, and it updates everywhere it's used.</p>
+            </div>
+            <h4>Landing Page Component Breakdown:</h4>
+            <div class="code-block">
+                <div class="code-header"><span class="code-lang">Landing Page Structure</span></div>
+                <div class="code-content"><pre>Landing Page
+├── Navigation (Header)
+│   ├── Logo
+│   ├── Nav Links
+│   └── CTA Button
+├── Hero Section
+│   ├── Headline
+│   ├── Subheadline
+│   ├── CTA Buttons
+│   └── Hero Image/Video
+├── Services/Features Section
+│   └── Service Cards (×3 or ×4)
+├── Testimonials Section
+│   └── Testimonial Cards
+├── Contact Form Section
+│   ├── Form Fields
+│   ├── Submit Button
+│   └── Success/Error Messages
+└── Footer
+    ├── Company Info
+    ├── Quick Links
+    └── Social Icons</pre></div>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card"><div class="feature-icon">♻️</div><h4>Reusability</h4><p>Build a button once, use it everywhere. Change it once, updates everywhere.</p></div>
+                <div class="feature-card"><div class="feature-icon">🔧</div><h4>Maintainability</h4><p>Easy to find and fix issues when code is organized logically.</p></div>
+                <div class="feature-card"><div class="feature-icon">👥</div><h4>Collaboration</h4><p>Team members can work on different components without conflicts.</p></div>
+                <div class="feature-card"><div class="feature-icon">🤖</div><h4>AI Guidance</h4><p>Cursor understands your project better when it's well-organized.</p></div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>🏗️ Using Frameworks</h3>
+            <div class="analogy-box">
+                <div class="analogy-box-header">💡 Think of it like this...</div>
+                <p><strong>Frameworks are like building kits vs raw materials.</strong> You could build a house by cutting every piece of wood yourself (vanilla HTML/CSS/JS), or use pre-cut kits that snap together (React, Next.js, Vue).</p>
+            </div>
+            <table class="comparison-table">
+                <thead><tr><th>Option</th><th>Best For</th><th>Learning Curve</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Vanilla HTML/CSS/JS</strong></td><td>Simple landing pages, learning basics</td><td>Easiest to start</td></tr>
+                    <tr><td><strong>React</strong></td><td>Interactive apps, reusable components</td><td>Medium</td></tr>
+                    <tr><td><strong>Next.js</strong></td><td>Full websites with SEO, backends, pages</td><td>Medium-High</td></tr>
+                    <tr><td><strong>Vue</strong></td><td>Progressive enhancement, simpler than React</td><td>Medium</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- MODULE 5: HANDS-ON LAB -->
+    <div class="module-separator" id="module-5">
+        <h2>Module 5</h2>
+        <p>Hands-On Lab</p>
+    </div>
+
+    <section class="section" id="hands-on">
+        <div class="section-header">
+            <div class="section-number">5</div>
+            <h2>Build a Landing Page</h2>
+            <p class="section-subtitle">Step-by-step practical exercise to create a complete landing page</p>
+        </div>
+
+        <div class="content-card">
+            <h3>🚀 Lab Setup</h3>
+            <div class="steps">
+                <div class="step"><div class="step-number">1</div><div class="step-content"><h4>Create a New Folder</h4><p>Open Cursor → File → Open Folder → Create new folder called "my-landing-page"</p></div></div>
+                <div class="step"><div class="step-number">2</div><div class="step-content"><h4>Open Composer</h4><p>Press <code>Cmd/Ctrl + I</code> to open Composer</p></div></div>
+                <div class="step"><div class="step-number">3</div><div class="step-content"><h4>Enable Agent Mode</h4><p>Click the "Agent" toggle in Composer for autonomous building</p></div></div>
+            </div>
+            <div class="prompt-block">
+                <div class="prompt-header"><span class="prompt-title">📝 Initial Setup Prompt</span><button class="code-copy">Copy</button></div>
+                <div class="prompt-content"><pre>Create a landing page project with this structure:
+
+PROJECT: Health & Wellness Coaching Landing Page
+
+FILES TO CREATE:
+1. index.html - Main landing page
+2. styles.css - All styling
+3. script.js - Interactivity
+4. /images - Folder for images (create empty)
+
+DESIGN REQUIREMENTS:
+- Modern, clean design with lots of white space
+- Color scheme: Primary #6366f1 (purple), Secondary #10b981 (green)
+- Font: Use Google Fonts 'Outfit' for headings, system fonts for body
+- Mobile responsive (mobile-first approach)
+- Smooth scroll behavior
+- Subtle animations on scroll
+
+SECTIONS TO INCLUDE:
+1. Navigation with logo, links (Home, Services, About, Contact), and CTA button
+2. Hero section with headline, subheadline, CTA button, and placeholder for image
+3. Services section with 3 service cards (icons, titles, descriptions)
+4. Testimonials section with 3 testimonial cards
+5. Contact form that works (name, email, message fields)
+6. Footer with links and social icons
+
+Start by creating all the files with the basic structure.</pre></div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>🏗️ Building Section by Section</h3>
+            <h4>Step 1: Hero Section Enhancement</h4>
+            <div class="prompt-block">
+                <div class="prompt-header"><span class="prompt-title">📝 Hero Section Prompt</span></div>
+                <div class="prompt-content"><pre>Enhance the hero section with:
+
+CONTENT:
+- Headline: "Transform Your Life with Expert Health Coaching"
+- Subheadline: "Personalized nutrition plans, fitness guidance, and mindset coaching"
+- Primary CTA: "Start Your Journey" (purple button)
+- Secondary CTA: "Learn More" (outline button)
+
+DESIGN:
+- Full viewport height (100vh)
+- Background: Subtle gradient from light purple to white
+- Text aligned left on desktop, centered on mobile
+- Buttons should have hover animations (scale up slightly, shadow)
+- Add a subtle entrance animation (fade in and slide up)</pre></div>
+            </div>
+
+            <h4>Step 2: Working Contact Form</h4>
+            <div class="prompt-block">
+                <div class="prompt-header"><span class="prompt-title">📝 Contact Form Prompt</span><button class="code-copy">Copy</button></div>
+                <div class="prompt-content"><pre>Create a contact form that actually submits data:
+
+FIELDS:
+1. Name (required, text input)
+2. Email (required, email validation)
+3. Message (required, textarea)
+4. Submit button
+
+FUNCTIONALITY:
+- Use Formspree (https://formspree.io) for form handling
+- Form action should be: "https://formspree.io/f/YOUR_FORM_ID"
+- Method: POST
+
+VALIDATION:
+- Show error messages if fields are empty
+- Validate email format before submit
+- Show loading state while submitting
+- Show success message after submission
+- Clear form after successful submission</pre></div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>✨ Adding Interactivity</h3>
+            <div class="prompt-block">
+                <div class="prompt-header"><span class="prompt-title">📝 Interactivity Prompt</span></div>
+                <div class="prompt-content"><pre>Add these interactive features to the landing page:
+
+1. SMOOTH SCROLL: Clicking nav links smoothly scrolls to sections
+2. STICKY NAVIGATION: Navigation becomes sticky after scrolling past hero
+3. SCROLL ANIMATIONS: Elements fade in and slide up as they come into view
+4. MOBILE MENU: Hamburger menu icon on mobile with slide-in menu
+5. BUTTON INTERACTIONS: All buttons scale up slightly on hover
+6. FORM INTERACTIONS: Input focus shows label floating above</pre></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODULE 6: N8N INTEGRATION -->
+    <div class="module-separator" id="module-6">
+        <h2>Module 6</h2>
+        <p>n8n Integration via MCP</p>
+    </div>
+
+    <section class="section" id="n8n-integration">
+        <div class="section-header">
+            <div class="section-number">6</div>
+            <h2>Connecting Cursor to n8n</h2>
+            <p class="section-subtitle">Use natural language in Cursor to create and manage n8n workflows</p>
+        </div>
+
+        <div class="content-card">
+            <h3>🔌 What is MCP?</h3>
+            <div class="analogy-box">
+                <div class="analogy-box-header">💡 Think of it like this...</div>
+                <p><strong>MCP (Model Context Protocol) is like a universal translator between AI and tools.</strong> Imagine you speak English and want to control German machinery. MCP is the translator that lets Cursor (speaking AI) communicate with n8n, databases, APIs, and other tools without you having to learn their "language."</p>
+            </div>
+            <h4>Why MCP Matters:</h4>
+            <ul>
+                <li><strong>Direct Control:</strong> Tell Cursor "create a workflow that sends me an email when a form is submitted" and it actually does it</li>
+                <li><strong>No Switching:</strong> Stay in Cursor, control everything from one place</li>
+                <li><strong>Plain Language:</strong> No need to learn n8n's interface — just describe what you want</li>
+                <li><strong>Context Aware:</strong> The AI understands your project and can suggest automations</li>
+            </ul>
+        </div>
+
+        <div class="content-card">
+            <h3>📥 Installing n8n-mcp</h3>
+            <h4>Prerequisites:</h4>
+            <ul>
+                <li>An n8n instance running (cloud or self-hosted)</li>
+                <li>Your n8n API key (from n8n Settings → API)</li>
+                <li>Node.js installed on your computer</li>
+            </ul>
+            <div class="steps">
+                <div class="step"><div class="step-number">1</div><div class="step-content"><h4>Get Your n8n API Key</h4><p>In n8n: Go to Settings → API → Create new API key. Copy it somewhere safe.</p></div></div>
+                <div class="step"><div class="step-number">2</div><div class="step-content"><h4>Open Cursor Settings</h4><p>Press <code>Cmd/Ctrl + ,</code> → Search for "MCP" → Click "Edit in settings.json"</p></div></div>
+                <div class="step"><div class="step-number">3</div><div class="step-content"><h4>Add MCP Configuration</h4><p>Add the n8n-mcp server configuration:</p></div></div>
+            </div>
+            <div class="code-block">
+                <div class="code-header"><span class="code-lang">Cursor Settings (settings.json)</span><button class="code-copy">Copy</button></div>
+                <div class="code-content"><pre>{
+  "mcpServers": {
+    "n8n": {
+      "command": "npx",
+      "args": ["-y", "@n8n/mcp-server"],
+      "env": {
+        "N8N_API_URL": "https://your-n8n-instance.app.n8n.cloud/api/v1",
+        "N8N_API_KEY": "your-api-key-here"
+      }
+    }
+  }
+}</pre></div>
+            </div>
+            <div class="warning-box">
+                <div class="warning-box-header">⚠️ Replace Placeholders</div>
+                <p>Replace <code>your-n8n-instance.app.n8n.cloud</code> with your actual n8n URL and <code>your-api-key-here</code> with your actual API key.</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>🔧 Creating a Workflow with Cursor</h3>
+            <div class="prompt-block">
+                <div class="prompt-header"><span class="prompt-title">📝 Sample Workflow: Form to Email</span><button class="code-copy">Copy</button></div>
+                <div class="prompt-content"><pre>Create an n8n workflow that does the following:
+
+TRIGGER:
+- Webhook that receives form submissions (POST request)
+- Expected data: name, email, message
+
+PROCESSING:
+1. Validate that all fields are present
+2. Format the message nicely
+
+ACTION:
+- Send an email notification with:
+  - To: admin@mycompany.com
+  - Subject: "New Contact Form Submission from [name]"
+  - Body: Formatted message with all the form details
+  - Include timestamp
+
+EXTRA:
+- Add error handling node
+- If something fails, log the error
+
+Create and activate this workflow.</pre></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODULE 7: AGENTS & SUB-AGENTS -->
+    <div class="module-separator" id="module-7">
+        <h2>Module 7</h2>
+        <p>Agents & Sub-Agents</p>
+    </div>
+
+    <section class="section" id="agents">
+        <div class="section-header">
+            <div class="section-number">7</div>
+            <h2>Agents & Sub-Agents</h2>
+            <p class="section-subtitle">Build reusable AI helpers using plain language instructions</p>
+        </div>
+
+        <div class="content-card">
+            <h3>🤖 Understanding AI Agents</h3>
+            <div class="analogy-box">
+                <div class="analogy-box-header">🏢 The Company Analogy</div>
+                <p><strong>Think of agents like employees in a company.</strong> You have a CEO (main agent) who delegates tasks to specialists: an HR person handles hiring, an accountant handles finances, a marketer handles promotion. Each specialist knows their job deeply and can work independently. That's exactly how AI agents work — you create specialized "employees" for specific tasks.</p>
+            </div>
+            <h4>What is an AI Agent?</h4>
+            <p>An AI Agent is a set of instructions that tells the AI how to behave for a specific type of task. Instead of explaining what you want every single time, you create an agent once and reuse it.</p>
+            <div class="feature-grid">
+                <div class="feature-card"><div class="feature-icon">🎯</div><h4>Specialized</h4><p>Each agent is an expert at one thing — task creation, email writing, data analysis</p></div>
+                <div class="feature-card"><div class="feature-icon">♻️</div><h4>Reusable</h4><p>Create once, use forever. Call the agent whenever you need that task done</p></div>
+                <div class="feature-card"><div class="feature-icon">🧠</div><h4>Consistent</h4><p>Same quality and approach every time — no need to re-explain your preferences</p></div>
+                <div class="feature-card"><div class="feature-icon">🔗</div><h4>Composable</h4><p>Combine multiple agents to handle complex workflows</p></div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>👥 Agent Hierarchy: Main Agents & Sub-Agents</h3>
+            <div class="analogy-box">
+                <div class="analogy-box-header">🏗️ The Construction Site Analogy</div>
+                <p><strong>Main Agent = Project Manager:</strong> Understands the big picture, coordinates the team, decides who does what.</p>
+                <p><strong>Sub-Agents = Specialist Workers:</strong> Electrician, plumber, carpenter — each does one thing really well. The project manager calls them when their expertise is needed.</p>
+            </div>
+            <div class="agent-flow">
+                <div class="agent-flow-title">Agent Hierarchy for Project Management</div>
+                <div class="flow-container">
+                    <div class="flow-main-agent">🎯 Main Agent: Project Manager<br><small>Understands requests, delegates to specialists</small></div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-sub-agents">
+                        <div class="flow-sub-agent"><div class="flow-sub-agent-title">📝 Task Creator</div><div class="flow-sub-agent-task">Creates new tasks</div></div>
+                        <div class="flow-sub-agent"><div class="flow-sub-agent-title">✏️ Task Updater</div><div class="flow-sub-agent-task">Modifies existing tasks</div></div>
+                        <div class="flow-sub-agent"><div class="flow-sub-agent-title">🔄 Status Changer</div><div class="flow-sub-agent-task">Updates task status</div></div>
+                        <div class="flow-sub-agent"><div class="flow-sub-agent-title">📦 Card Mover</div><div class="flow-sub-agent-task">Moves tasks between lists</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>🛠️ Creating Agents in Cursor (Plain Language)</h3>
+            <p>In Cursor, you create agents by writing detailed instructions in special files. These files tell the AI exactly how to behave when performing certain tasks.</p>
+            <h4>Method 1: Using .cursorrules for Project-Wide Agents</h4>
+            <p>Add agent definitions to your .cursorrules file. These become available throughout your project.</p>
+            <h4>Method 2: Using Dedicated Agent Files</h4>
+            <p>Create a folder called <code>/agents</code> and add markdown files for each agent. Reference them when needed.</p>
+            <div class="prompt-block">
+                <div class="prompt-header"><span class="prompt-title">📝 Template: Creating a Main Agent</span><button class="code-copy">Copy</button></div>
+                <div class="prompt-content"><pre>Create an agent file at /agents/project-manager.md with these instructions:
+
+# Project Manager Agent
+
+## WHO YOU ARE
+You are a Project Manager agent that helps manage tasks in ClickUp.
+You understand project management, priorities, and team workflows.
+
+## WHAT YOU CAN DO
+- Understand user requests about task management
+- Decide which specialist sub-agent should handle the request
+- Coordinate between multiple sub-agents when needed
+- Provide summaries of what was accomplished
+
+## HOW YOU WORK
+When the user asks for something related to task management:
+1. Understand what they're trying to accomplish
+2. Identify which sub-agent(s) need to be involved
+3. Call the appropriate sub-agent with clear instructions
+4. Confirm the action was completed
+5. Ask if anything else is needed
+
+## SUB-AGENTS YOU CAN CALL
+- @task-creator - For creating new tasks
+- @task-updater - For modifying existing tasks
+- @status-changer - For changing task statuses
+- @card-mover - For moving tasks between lists
+
+## COMMUNICATION STYLE
+- Confirm understanding before taking action
+- Provide clear summaries of what was done
+- Ask clarifying questions if the request is ambiguous
+- Be proactive in suggesting related actions</pre></div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>📋 Practical Example: ClickUp Agents</h3>
+            <p>Let's create a complete set of agents for managing ClickUp tasks using plain language instructions:</p>
+            
+            <h4>Sub-Agent 1: Task Creator</h4>
+            <div class="prompt-block">
+                <div class="prompt-header"><span class="prompt-title">📝 /agents/task-creator.md</span><button class="code-copy">Copy</button></div>
+                <div class="prompt-content"><pre># Task Creator Agent
+
+## YOUR JOB
+You create new tasks in ClickUp. You're like an assistant who fills out 
+the new task form perfectly every time.
+
+## WHAT YOU NEED TO KNOW
+- Workspace: "My Company Workspace"
+- Default Space: "Marketing Team"
+- Default List: "To Do"
+
+## HOW TO CREATE A TASK
+When asked to create a task, gather this information:
+1. Task Title (required) - What is this task called?
+2. Description (optional) - What details should be included?
+3. Assignee (optional) - Who should do this? (use email)
+4. Due Date (optional) - When is it due?
+5. Priority (optional) - 1=Urgent, 2=High, 3=Normal, 4=Low
+
+## EXAMPLE CONVERSATION
+User: "Create a task called 'Design new logo'"
+
+You: "I'll create that task. Any additional details?
+- Description: (optional)
+- Assign to: (optional, provide email)
+- Due date: (optional)
+- Priority: 1-4, default is 3-Normal
+
+Or just say 'create it' and I'll use defaults."
+
+User: "Assign to sarah@company.com, due Friday, high priority"
+
+You: "Creating task:
+✅ Title: Design new logo
+✅ Assignee: sarah@company.com
+✅ Due: This Friday
+✅ Priority: High
+✅ List: To Do
+
+Task created! Link: [clickup link]"</pre></div>
+            </div>
+
+            <h4>Sub-Agent 2: Status Changer</h4>
+            <div class="prompt-block">
+                <div class="prompt-header"><span class="prompt-title">📝 /agents/status-changer.md</span><button class="code-copy">Copy</button></div>
+                <div class="prompt-content"><pre># Status Changer Agent
+
+## YOUR JOB
+You change task statuses in ClickUp. You're like someone who moves 
+sticky notes on a Kanban board from one column to another.
+
+## AVAILABLE STATUSES
+- "to do" - Task hasn't started
+- "in progress" - Someone is working on it
+- "in review" - Waiting for review/approval
+- "done" - Task is complete
+- "blocked" - Task can't proceed
+
+## SHORTCUTS I UNDERSTAND
+- "start" or "begin" → In Progress
+- "finish", "complete", "done" → Done
+- "pause" or "hold" → Blocked
+- "review" or "check" → In Review
+- "reopen" or "undo" → To Do
+
+## EXAMPLE
+User: "Mark the logo task as complete"
+
+You: "Found it!
+📋 Task: Design new logo
+Current status: In Progress
+
+Changing to Done..."
+
+You: "Done! ✅
+Task 'Design new logo' is now marked as Complete."</pre></div>
+            </div>
+
+            <h4>Sub-Agent 3: Card Mover</h4>
+            <div class="prompt-block">
+                <div class="prompt-header"><span class="prompt-title">📝 /agents/card-mover.md</span><button class="code-copy">Copy</button></div>
+                <div class="prompt-content"><pre># Card Mover Agent
+
+## YOUR JOB
+You move tasks between different lists, folders, or spaces in ClickUp.
+You're like someone who physically picks up a task card and places it 
+in a different location.
+
+## UNDERSTANDING CLICKUP STRUCTURE
+Think of it like a filing system:
+- WORKSPACE = The entire office
+- SPACE = A department (Marketing, Engineering, etc.)
+- FOLDER = A project within a department
+- LIST = A category within a project
+
+## EXAMPLE
+User: "Move the logo task to the Completed folder"
+
+You: "Let me do that...
+📋 Task: Design new logo
+From: Marketing Team → Active Projects → To Do
+To: Marketing Team → Completed → Done
+
+Moving task..."
+
+You: "Done! ✅ 
+'Design new logo' has been moved to the Completed folder."</pre></div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>🔄 Alternative Ways to Create Agents</h3>
+            <p>While Cursor's built-in approach is great for beginners, there are more powerful frameworks for complex agent systems:</p>
+            
+            <h4>CrewAI</h4>
+            <div class="analogy-box">
+                <div class="analogy-box-header">💡 What is CrewAI?</div>
+                <p><strong>CrewAI is like assembling a specialized team.</strong> Instead of one AI doing everything, you create a "crew" of agents that collaborate on complex tasks. One agent researches, another writes, another reviews — like a real team working together.</p>
+            </div>
+            <div class="code-block">
+                <div class="code-header"><span class="code-lang">CrewAI Example (Python)</span></div>
+                <div class="code-content"><pre># Install: pip install crewai
+
+from crewai import Agent, Task, Crew
+
+# Create specialized agents
+researcher = Agent(
+    role="Research Analyst",
+    goal="Find accurate information about topics",
+    backstory="You're an expert researcher who finds facts"
+)
+
+writer = Agent(
+    role="Content Writer", 
+    goal="Write clear, engaging content",
+    backstory="You're a skilled writer who explains complex topics simply"
+)
+
+# Assemble the crew
+crew = Crew(agents=[researcher, writer], tasks=[...])
+result = crew.kickoff()</pre></div>
+            </div>
+
+            <h4>Other Agent Frameworks:</h4>
+            <table class="comparison-table">
+                <thead><tr><th>Framework</th><th>Best For</th><th>Difficulty</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Cursor Rules</strong></td><td>Simple agents, beginners, no code needed</td><td>Easy</td></tr>
+                    <tr><td><strong>CrewAI</strong></td><td>Team-based workflows, collaboration</td><td>Medium</td></tr>
+                    <tr><td><strong>AutoGen (Microsoft)</strong></td><td>Multi-agent conversations, code execution</td><td>Medium</td></tr>
+                    <tr><td><strong>LangGraph</strong></td><td>Complex workflows with state, conditionals</td><td>Hard</td></tr>
+                    <tr><td><strong>n8n AI Agents</strong></td><td>No-code agent workflows, business automation</td><td>Easy-Medium</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- MODULE 8: ADVANCED WORKFLOWS -->
+    <div class="module-separator" id="module-8">
+        <h2>Module 8</h2>
+        <p>Advanced Workflows</p>
+    </div>
+
+    <section class="section" id="advanced">
+        <div class="section-header">
+            <div class="section-number">8</div>
+            <h2>Advanced Workflows</h2>
+            <p class="section-subtitle">Merging codebases, branching, and professional development cadence</p>
+        </div>
+
+        <div class="content-card">
+            <h3>🔀 Marrying Claude Code (Backend) + Lovable (Frontend)</h3>
+            <div class="analogy-box">
+                <div class="analogy-box-header">💡 The House Renovation Analogy</div>
+                <p>Imagine you hired two contractors: One built an amazing kitchen (backend with Claude Code) but made the living room ugly. Another created a gorgeous living room (frontend with Lovable) but didn't touch the kitchen. Now you need a third contractor (Cursor) to merge both houses into one, keeping the best of each without breaking anything.</p>
+            </div>
+            <div class="workflow-diagram">
+                <div class="workflow-step highlight-1"><div class="workflow-step-icon">🔧</div><div class="workflow-step-title">Claude Code</div><small>Backend Logic</small></div>
+                <div class="workflow-arrow">+</div>
+                <div class="workflow-step highlight-2"><div class="workflow-step-icon">🎨</div><div class="workflow-step-title">Lovable</div><small>Beautiful UI</small></div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step highlight-3"><div class="workflow-step-icon">⚡</div><div class="workflow-step-title">Cursor</div><small>Merge & Test</small></div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step"><div class="workflow-step-icon">✅</div><div class="workflow-step-title">Complete App</div><small>Best of Both</small></div>
+            </div>
+
+            <h4>Step 1: Generate Backend with Claude Code</h4>
+            <div class="prompt-block">
+                <div class="prompt-header"><span class="prompt-title">📝 Claude Code Prompt (Backend)</span><button class="code-copy">Copy</button></div>
+                <div class="prompt-content"><pre>Create a complete backend system for a task management app:
+
+## DATABASE STRUCTURE
+Create Supabase tables for:
+1. users (id, email, name, created_at)
+2. projects (id, name, owner_id, created_at)
+3. tasks (id, title, description, status, priority, project_id, assignee_id, due_date, created_at, updated_at)
+
+## API ENDPOINTS
+Create API routes for:
+- GET /api/tasks - List all tasks (with filters)
+- POST /api/tasks - Create new task
+- PUT /api/tasks/:id - Update task
+- DELETE /api/tasks/:id - Delete task
+
+## TESTING REQUIREMENTS
+After creating the backend, TEST EVERYTHING:
+1. Test CREATE: Insert 5 sample tasks with different data
+2. Test READ: Retrieve all tasks, verify data integrity
+3. Test UPDATE: Modify 2 tasks, verify changes persisted
+4. Test DELETE: Remove 1 task, verify it's gone
+5. Test edge cases: Empty fields, invalid IDs, duplicate entries
+
+Do NOT create any frontend UI. Backend and API only.</pre></div>
+            </div>
+
+            <h4>Step 2: Generate Frontend with Lovable</h4>
+            <div class="prompt-block">
+                <div class="prompt-header"><span class="prompt-title">📝 Lovable Prompt (Frontend)</span><button class="code-copy">Copy</button></div>
+                <div class="prompt-content"><pre>Create a beautiful, modern task management app UI:
+
+## DESIGN REQUIREMENTS
+- Clean, minimal design with excellent typography
+- Color scheme: Purple primary (#6366f1), Green accents (#10b981)
+- Smooth animations throughout
+- Mobile responsive
+
+## UI COMPONENTS NEEDED
+- Task cards with status badges, priority indicators
+- Kanban board view with drag-and-drop
+- Task creation modal with form validation
+- Filter sidebar with status, priority, date filters
+
+## ANIMATIONS (IMPORTANT - DO NOT SKIP)
+- Page transitions: smooth fade and slide
+- Card hover effects: subtle lift and shadow
+- Modal open/close: scale and fade
+- Drag and drop: smooth movement with shadow
+
+## CRITICAL: This is UI ONLY
+- Use placeholder/mock data for all components
+- Create all click handlers but leave them empty
+- Do NOT implement any backend or API calls
+- Focus 100% on making it beautiful and animated
+
+Export the complete frontend code.</pre></div>
+            </div>
+
+            <h4>Step 3: Merge with Cursor (THE CRITICAL STEP)</h4>
+            <div class="prompt-block">
+                <div class="prompt-header"><span class="prompt-title">📝 Cursor Merge Prompt (EXHAUSTIVE)</span><button class="code-copy">Copy</button></div>
+                <div class="prompt-content"><pre>I have two separate codebases that need to be merged into one working application:
+
+## SOURCE 1: BACKEND (from Claude Code)
+Location: /claude-code-backend/
+Contains: Supabase database schema, API routes, backend logic
+This is the ONLY backend we will use.
+
+## SOURCE 2: FRONTEND (from Lovable)
+Location: /lovable-frontend/
+Contains: Beautiful UI components, pages, animations, styling
+This is the ONLY frontend we will use.
+
+## YOUR TASK: MERGE THESE INTO ONE WORKING APP
+
+### ABSOLUTE RULES - DO NOT VIOLATE THESE:
+
+❌ NEVER use the frontend generated by Claude Code
+   - Ignore any UI files from Claude Code completely
+   - Delete any .jsx, .tsx, .css UI files from Claude Code output
+   
+❌ NEVER modify the Lovable frontend design
+   - Do not change ANY colors
+   - Do not change ANY fonts
+   - Do not change ANY spacing or layout
+   - Do not change ANY animations or transitions
+   - Do not change ANY hover effects
+   - Do not "improve" or "clean up" any styling
+   
+❌ NEVER change Lovable animations
+   - Keep ALL animation timings exactly as they are
+   - Keep ALL animation easings exactly as they are
+   - Keep ALL transition effects exactly as they are
+   - If something animates on hover, it must still animate on hover
+   - If something has a page transition, keep that exact transition
+
+✅ WHAT YOU MUST DO:
+1. Keep Lovable's UI 100% intact - every pixel, every animation
+2. Connect Lovable's empty click handlers to Claude Code's API
+3. Replace mock data with real API calls
+4. Handle loading states (use Lovable's existing skeletons)
+5. Handle error states appropriately
+6. Ensure authentication flows work
+
+### TESTING REQUIREMENTS (EXHAUSTIVE):
+
+After merging, test EVERYTHING:
+
+UI TESTING:
+□ All pages render correctly
+□ All animations play correctly
+□ All hover effects work
+□ All transitions work
+□ Mobile responsive works
+□ No CSS conflicts or style issues
+□ Loading skeletons appear during data fetch
+□ Error states display correctly
+
+BACKEND TESTING:
+□ Create new task - verify it saves to database
+□ Read tasks - verify list populates correctly
+□ Update task - verify changes persist
+□ Delete task - verify it's removed
+□ Filter tasks - verify filters work
+
+INTEGRATION TESTING:
+□ Create task → see it appear in list (with animation)
+□ Update task status → see card move (with animation)
+□ Delete task → see card disappear (with animation)
+
+### FINAL DELIVERABLE:
+1. Complete merged codebase
+2. Test results for each category above
+3. Any issues encountered and how they were resolved
+4. Instructions to run the app locally
+
+### VERIFICATION CHECKLIST:
+□ Lovable UI is 100% unchanged visually
+□ All Lovable animations work exactly as before
+□ All Claude Code API endpoints work
+□ All CRUD operations tested and working
+□ No console errors
+□ App is fully functional end-to-end</pre></div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>🌿 Branching & Small PR Changes</h3>
+            <div class="analogy-box">
+                <div class="analogy-box-header">💡 Think of it like this...</div>
+                <p><strong>Branches are like parallel universes for your code.</strong> The "main" branch is the stable, production-ready universe. When you want to try something new, you create a parallel universe (branch) where you can experiment safely. If it works, you merge it back. If it breaks, you just delete that universe — main stays safe.</p>
+            </div>
+            <h4>Why Small Changes Matter:</h4>
+            <ul>
+                <li><strong>Easier to review:</strong> 50-line changes are reviewable, 5000-line changes are not</li>
+                <li><strong>Easier to revert:</strong> If something breaks, you know exactly what caused it</li>
+                <li><strong>Faster feedback:</strong> Get reviews and merge faster</li>
+                <li><strong>Less merge conflicts:</strong> Small changes rarely conflict with others</li>
+            </ul>
+            <div class="code-block">
+                <div class="code-header"><span class="code-lang">Branch Workflow</span><button class="code-copy">Copy</button></div>
+                <div class="code-content"><pre># Make sure you're on main and up to date
+git checkout main
+git pull origin main
+
+# Create a new branch for your feature
+git checkout -b feature/add-task-filters
+
+# Make your changes, then stage and commit
+git add .
+git commit -m "Add status and priority filters to task list"
+
+# Push your branch to GitHub
+git push origin feature/add-task-filters
+
+# Create a Pull Request on GitHub</pre></div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>⚙️ Operating Cadence: Your Daily Workflow</h3>
+            <div class="steps">
+                <div class="step"><div class="step-number">1</div><div class="step-content"><h4>DEFINE</h4><p>Write a clear description of the feature or fix. What does "done" look like?</p></div></div>
+                <div class="step"><div class="step-number">2</div><div class="step-content"><h4>LOCATE</h4><p>Use Cursor's search to find relevant files. Ask AI "Where should I make this change?"</p></div></div>
+                <div class="step"><div class="step-number">3</div><div class="step-content"><h4>IMPLEMENT</h4><p>Open Composer, describe your change, let AI help you build it across files.</p></div></div>
+                <div class="step"><div class="step-number">4</div><div class="step-content"><h4>VERIFY</h4><p>Run the app, test the feature, check for errors. Use Agent Mode to run tests.</p></div></div>
+                <div class="step"><div class="step-number">5</div><div class="step-content"><h4>COMMIT</h4><p>Stage changes, write a clear commit message describing what you did.</p></div></div>
+                <div class="step"><div class="step-number">6</div><div class="step-content"><h4>MERGE</h4><p>Create a Pull Request, get review if needed, merge to main branch.</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODULE 9: SECRET SAUCES -->
+    <div class="module-separator" id="module-9">
+        <h2>Module 9</h2>
+        <p>Secret Sauces 🔥</p>
+    </div>
+
+    <section class="section" id="secret-sauce">
+        <div class="section-header">
+            <div class="section-number">9</div>
+            <h2>Secret Sauces 🔥</h2>
+            <p class="section-subtitle">Pro tips, hidden gems, and power user techniques</p>
+        </div>
+
+        <div class="content-card">
+            <div class="secret-sauce">
+                <div class="secret-sauce-header"><span class="secret-sauce-icon">🔥</span><span class="secret-sauce-title">Secret Sauce #1: The Context Window Hack</span></div>
+                <div class="secret-sauce-content">
+                    <p><strong>The Problem:</strong> AI can only "see" a limited amount of text at once (context window). Big projects exceed this.</p>
+                    <p><strong>The Solution:</strong> Create a <code>PROJECT_CONTEXT.md</code> file that summarizes your entire project. Reference it in every prompt with <code>@PROJECT_CONTEXT.md</code>. The AI gets the full picture without reading every file.</p>
+                </div>
+            </div>
+
+            <div class="secret-sauce">
+                <div class="secret-sauce-header"><span class="secret-sauce-icon">🔥</span><span class="secret-sauce-title">Secret Sauce #2: The "Act As" Technique</span></div>
+                <div class="secret-sauce-content">
+                    <p><strong>Instead of:</strong> "Fix this bug"</p>
+                    <p><strong>Say:</strong> "Act as a senior software engineer doing a code review. Analyze this code for bugs, performance issues, and best practice violations. Then fix what you find."</p>
+                    <p>The AI gives dramatically better results when you assign it a specific expert role.</p>
+                </div>
+            </div>
+
+            <div class="secret-sauce">
+                <div class="secret-sauce-header"><span class="secret-sauce-icon">🔥</span><span class="secret-sauce-title">Secret Sauce #3: The Negative Prompt</span></div>
+                <div class="secret-sauce-content">
+                    <p><strong>Tell the AI what NOT to do.</strong> This prevents common mistakes:</p>
+                    <p>"Create a contact form. DO NOT: use inline styles, hardcode colors, forget error states, skip mobile responsiveness"</p>
+                </div>
+            </div>
+
+            <div class="secret-sauce">
+                <div class="secret-sauce-header"><span class="secret-sauce-icon">🔥</span><span class="secret-sauce-title">Secret Sauce #4: The Rubber Duck Technique</span></div>
+                <div class="secret-sauce-content">
+                    <p><strong>Before asking the AI to fix something, explain the problem to it.</strong></p>
+                    <p>Say: "Let me explain what I'm trying to do..." and describe your goal, what you tried, and what went wrong. Often, just explaining it helps YOU realize the solution!</p>
+                </div>
+            </div>
+
+            <div class="secret-sauce">
+                <div class="secret-sauce-header"><span class="secret-sauce-icon">🔥</span><span class="secret-sauce-title">Secret Sauce #5: The Incremental Complexity Strategy</span></div>
+                <div class="secret-sauce-content">
+                    <p><strong>Don't ask for everything at once.</strong></p>
+                    <p>Instead of: "Build me a complete e-commerce site"</p>
+                    <p>Do this: 1) Create product listing → 2) Add shopping cart → 3) Implement auth → 4) Add checkout</p>
+                    <p>Each step builds on the last. You catch errors early. Results are 10x better.</p>
+                </div>
+            </div>
+
+            <div class="secret-sauce">
+                <div class="secret-sauce-header"><span class="secret-sauce-icon">🔥</span><span class="secret-sauce-title">Secret Sauce #6: The Screenshot Technique</span></div>
+                <div class="secret-sauce-content">
+                    <p><strong>When describing UI issues, take a screenshot and describe what's wrong.</strong></p>
+                    <p>Cursor can analyze images! Paste a screenshot and say: "The button is misaligned. It should be centered. Fix it."</p>
+                </div>
+            </div>
+
+            <div class="secret-sauce">
+                <div class="secret-sauce-header"><span class="secret-sauce-icon">🔥</span><span class="secret-sauce-title">Secret Sauce #7: The Checkpoint Strategy</span></div>
+                <div class="secret-sauce-content">
+                    <p><strong>Commit working code before every major change.</strong></p>
+                    <p>Before saying "Now add authentication", commit what you have: <code>git commit -m "Working app before adding auth"</code></p>
+                    <p>If the next change breaks everything, you can always go back!</p>
+                </div>
+            </div>
+
+            <div class="secret-sauce">
+                <div class="secret-sauce-header"><span class="secret-sauce-icon">🔥</span><span class="secret-sauce-title">Secret Sauce #8: The Model Switching Strategy</span></div>
+                <div class="secret-sauce-content">
+                    <p><strong>Different models for different tasks:</strong></p>
+                    <ul>
+                        <li><strong>cursor-small:</strong> Quick questions, syntax lookup</li>
+                        <li><strong>Claude Sonnet:</strong> Most coding tasks</li>
+                        <li><strong>Claude Opus:</strong> Complex debugging, architecture decisions</li>
+                        <li><strong>GPT-4o:</strong> Creative solutions, brainstorming</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="secret-sauce">
+                <div class="secret-sauce-header"><span class="secret-sauce-icon">🔥</span><span class="secret-sauce-title">Secret Sauce #9: The "Show Don't Tell" Prompt</span></div>
+                <div class="secret-sauce-content">
+                    <p><strong>Give examples instead of explaining.</strong></p>
+                    <p>Instead of: "Make the buttons consistent"</p>
+                    <p>Say: "Make all buttons look like this one: [paste the good button code]. Apply this style to: header button, form submit button, modal close button."</p>
+                </div>
+            </div>
+
+            <div class="secret-sauce">
+                <div class="secret-sauce-header"><span class="secret-sauce-icon">🔥</span><span class="secret-sauce-title">Secret Sauce #10: The Review Request</span></div>
+                <div class="secret-sauce-content">
+                    <p><strong>Ask the AI to review its own work.</strong></p>
+                    <p>After the AI generates code, say: "Review the code you just wrote. Check for: bugs, security issues, performance problems, missing edge cases. Then fix any problems you find."</p>
+                    <p>The AI catches its own mistakes surprisingly often.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODULE 10: WHEN TO USE CURSOR -->
+    <div class="module-separator" id="module-10">
+        <h2>Module 10</h2>
+        <p>When to Use Cursor</p>
+    </div>
+
+    <section class="section">
+        <div class="section-header">
+            <div class="section-number">10</div>
+            <h2>When to Use Cursor</h2>
+            <p class="section-subtitle">Decision framework for choosing the right tool</p>
+        </div>
+
+        <div class="content-card">
+            <h3>🎯 Tool Selection Decision Framework</h3>
+            <table class="comparison-table">
+                <thead><tr><th>Scenario</th><th>Best Tool</th><th>Why</th></tr></thead>
+                <tbody>
+                    <tr><td>Building a website/landing page</td><td><span class="highlight-green">Cursor</span></td><td>Visual editor, preview, great for HTML/CSS/JS</td></tr>
+                    <tr><td>Complex backend automation</td><td><span class="highlight">Claude Code</span></td><td>Terminal-based, runs commands autonomously</td></tr>
+                    <tr><td>Quick question about code</td><td><span class="highlight-orange">ChatGPT/Claude.ai</span></td><td>Fast, no setup needed, good for learning</td></tr>
+                    <tr><td>Beautiful UI without coding</td><td><span class="highlight-green">Lovable/v0</span></td><td>Visual builder, instant preview</td></tr>
+                    <tr><td>Refactoring large codebase</td><td><span class="highlight-green">Cursor</span></td><td>Multi-file editing, code understanding</td></tr>
+                    <tr><td>Data processing scripts</td><td><span class="highlight">Claude Code</span></td><td>File system access, can run and test immediately</td></tr>
+                    <tr><td>Learning a new framework</td><td><span class="highlight-green">Cursor</span></td><td>AI explains as you build, see code context</td></tr>
+                    <tr><td>No-code automation</td><td><span class="highlight-orange">n8n/Zapier</span></td><td>Visual workflow builder, pre-built integrations</td></tr>
+                    <tr><td>Full-stack app from scratch</td><td><span class="highlight-green">Lovable → Cursor</span></td><td>Lovable for UI, Cursor to add backend logic</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="content-card">
+            <h3>✅ Use Cursor When...</h3>
+            <div class="feature-grid">
+                <div class="feature-card"><div class="feature-icon">🎨</div><h4>Building Web Interfaces</h4><p>HTML, CSS, JavaScript, React — anything visual</p></div>
+                <div class="feature-card"><div class="feature-icon">📝</div><h4>Editing Existing Code</h4><p>Making changes to files, refactoring, adding features</p></div>
+                <div class="feature-card"><div class="feature-icon">🔍</div><h4>Understanding Code</h4><p>Learning how something works, getting explanations</p></div>
+                <div class="feature-card"><div class="feature-icon">🐛</div><h4>Debugging With Context</h4><p>When you need the AI to see your full project</p></div>
+                <div class="feature-card"><div class="feature-icon">📁</div><h4>Multi-File Changes</h4><p>Features that touch many files at once</p></div>
+                <div class="feature-card"><div class="feature-icon">🎓</div><h4>Learning to Code</h4><p>Gentle learning curve, visual feedback</p></div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>🏆 Tips for Success</h3>
+            <div class="feature-grid">
+                <div class="feature-card"><div class="feature-icon">📖</div><h4>Learn the Basics</h4><p>Understanding HTML/CSS/JS helps you communicate better with Cursor</p></div>
+                <div class="feature-card"><div class="feature-icon">💾</div><h4>Commit Often</h4><p>Save working versions frequently. You can always go back if something breaks.</p></div>
+                <div class="feature-card"><div class="feature-icon">🧩</div><h4>Work Incrementally</h4><p>Build small pieces, test them, then move on.</p></div>
+                <div class="feature-card"><div class="feature-icon">📝</div><h4>Write Clear Prompts</h4><p>Specific > Vague. "Blue button, 44px tall" beats "nice button"</p></div>
+                <div class="feature-card"><div class="feature-icon">🔄</div><h4>Iterate</h4><p>First result not perfect? Refine your prompt or ask for specific changes.</p></div>
+                <div class="feature-card"><div class="feature-icon">🤝</div><h4>Treat AI as Collaborator</h4><p>It's a very smart assistant, not magic. Guide it, correct it, work together.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">AI Catalyst</div>
+        <p>CursorAI Masterclass by Varun Tyagi</p>
+        <p style="font-size: 0.9rem; margin-top: 1rem;">© 2026 AI Catalyst. Created for non-technical learners who want to harness the power of AI coding tools.</p>
+        <div class="footer-links">
+            <a href="#module-1">Foundations</a>
+            <a href="#module-2">Coding Basics</a>
+            <a href="#module-5">Hands-On Lab</a>
+            <a href="#module-7">Agents</a>
+            <a href="#module-9">Secret Sauces</a>
+        </div>
+    </footer>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+            event.preventDefault();
+            return false;
+        }
+
+        document.querySelectorAll('.code-copy').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const block = this.closest('.code-block, .prompt-block');
+                const code = block.querySelector('pre').textContent;
+                navigator.clipboard.writeText(code).then(() => {
+                    const orig = this.textContent;
+                    this.textContent = 'Copied!';
+                    this.style.background = 'var(--secondary)';
+                    setTimeout(() => { this.textContent = orig; this.style.background = ''; }, 2000);
+                });
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const href = this.getAttribute('href');
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                return false;
+            });
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.content-card, .feature-card, .toc-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(15, 15, 26, 0.98)';
+                nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
+            } else {
+                nav.style.background = 'rgba(15, 15, 26, 0.95)';
+                nav.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
